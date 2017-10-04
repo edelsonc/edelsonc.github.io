@@ -1,0 +1,276 @@
+---
+title: "Multidimensional Scaling"
+author: "Charlie Edelson"
+date: "10/3/2017"
+output: 
+    beamer_presentation: 
+        theme: "Berlin"
+        colortheme: "dolphin"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+## Overview
+
+* Classical Problem 
+    - Canonical Problem -- Principle Coordinate Analysis
+* Relationship to Principle Component Analysis
+
+* General Problem
+    - Metric vs Non-metric
+
+# Classical Multidimensional Scaling
+
+## A Tale of Three Cities
+Imagine we have three cities: $A$, $B$, and $C$
+
+We wish to make a map of our cities, *but* we only know *distances* and not *locations*.
+
+How do we place them on the map?
+
+$\text{    }\rightarrow$ How do we represent distances?
+
+## Distance Matrix
+
+We can introduce the distance matrix $D$, where, given a measure of distance $d$, 
+
+\begin{equation}
+    D = \{d_{ij}\} =  \{d(\vec{r}_i,\vec{r}_j)\}.
+\end{equation}
+
+For our city example, where $\vec{r}_i = (x_i, y_i)^T$, we'll use
+
+\begin{align}
+    d(\vec{r}_B, \vec{r}_A) &= \sqrt{(x_b - x_a) ^ 2 + (y_b - y_a)^2} \\
+    &= \| \vec{r}_B - \vec{r}_A \|
+\end{align}
+
+## Example - City Distances
+
+For our cities $d_{ab} = d(\vec{r}_A, \vec{r}_B)$, so
+
+\begin{equation}
+D   = 
+    \begin{bmatrix}
+    d(\vec{r}_A, \vec{r}_A) & d(\vec{r}_A, \vec{r}_B) & d(\vec{r}_A, \vec{r}_C) \\
+    d(\vec{r}_B, \vec{r}_A) & d(\vec{r}_B, \vec{r}_B) & d(\vec{r}_B, \vec{r}_C) \\
+    d(\vec{r}_C, \vec{r}_A) & d(\vec{r}_C, \vec{r}_B) & d(\vec{r}_C, \vec{r}_C)
+    \end{bmatrix}.
+\end{equation}
+
+If $\vec{r}_A = (1,1)^T$, $\vec{r}_B = (1,2)^T$, $\vec{r}_C = (2,1)^T$, then 
+
+\begin{equation}
+D   = 
+    \begin{bmatrix}
+    0 & 1 & 1 \\
+    1 & 0 & \sqrt{2} \\
+    1 & \sqrt{2} & 0
+    \end{bmatrix}.
+\end{equation}
+
+## Rephrase the Problem
+
+Instead of looking for the original vectors $\{\vec{r_i}\}_{i=1}^n$, we instead wish to find the set of vectors $\{\vec{z_i}\}_{i=1}^n$ s.t. they minimize
+
+\begin{equation}
+\label{5a}
+    Stress_D = \sum_{i,j} \left( d_{ij} - d(\vec{z}_i, \vec{z}_j) \right)^2.
+\end{equation}
+
+In other words, find a set of vectors which have the same distances as the original vectors.
+
+## Difficulties Arise
+
+Depending on the definition of $d(\vec{z}_i, \vec{z}_j)$, Eq.\ref{5a} can difficult to solve analytically.
+
+Additionally...
+
+## Unique Selections
+...translations and rotations do not affect the distances!
+
+```{r, fig.height= 4}
+X1 <-  matrix(c(
+    1, 1, 
+    1, 2, 
+    2, 1), byrow = TRUE, nrow = 3)
+
+# translate X1
+X2 <- X1 + 1
+
+# rotate X1
+R <- matrix(c(0, -1,
+              1, 0), byrow = TRUE, nrow = 2)
+X3 <- t(R %*% t(X1))
+
+par(mfrow = c(1, 3))
+plot(X1, ylim = c(0,3), xlim = c(-3,3), xlab = "x", ylab = "y", main = "X")
+plot(X2, ylim = c(0,3), xlim = c(-3,3), xlab = "x", ylab = "y", main = "X + 1")
+plot(X3, ylim = c(0,3), xlim = c(-3,3), xlab = "x", ylab = "y", main = "R(X^T)")
+```
+
+Multiple solutions for a single distance matrix.
+
+## Altered Problem
+
+Consider instead the distance matrix $B$ where
+
+\begin{equation}
+    B = \{b_{ij}\} = \{ \langle \vec{x}_i - \bar{x}, \vec{x}_j - \bar{x}  \rangle \}.
+\end{equation}
+
+$B$ is a matrix of mean centered inner products of $\vec{x}_i$.
+
+Alternatively, for $X \in \mathbb{R}^{n \times p}$, where $X_{i.} = \vec{x}_i - \bar{x}$, 
+\begin{equation}
+    B = XX^T
+\end{equation}
+
+## Altered Problem Cont.
+
+Lets review our goal -- minimize
+
+\begin{equation}
+\label{5a}
+    \sum_{i,j} \left( d_{ij} - d(\vec{z}_i, \vec{z}_j) \right)^2.
+\end{equation}
+
+For $B$
+\begin{align}
+     Stress &= \sum_{i,j} \left( b_{ij} - d(\vec{z}_i, \vec{z}_j) \right)^2 \\
+     &= \sum_{i,j} \left( \langle \vec{x}_i - \bar{x}, \vec{x}_j - \bar{x}  \rangle - d(\vec{z}_i, \vec{z}_j) \right)^2
+\end{align}
+
+## Simple Minimum
+
+It becomes evident that given
+\begin{equation}
+    d(\vec{z}_i, \vec{z}_j) = \langle \vec{z}_i, \vec{z}_j \rangle
+\end{equation}
+
+the minimum of 
+\begin{equation}
+    Strain_B = \sum_{i,j} \left( \langle \vec{x}_i - \bar{x}, \vec{x}_j - \bar{x}  \rangle - d(\vec{z}_i, \vec{z}_j) \right)^2
+\end{equation}
+
+occures when $\{\vec{z}_i\}_{i=1}^n = \{\vec{x}_i - \bar{x}\}_{i=1}^n$.
+
+
+## Decompose Our Solution
+
+For $B = XX^T$ we know finding $X$ directly is a solution; since $B$ is symetric and semi-definite
+\begin{align}
+    B &= E \Lambda E^-1 \\
+    XX^T &= E \Lambda^{1/2} \Lambda^{1/2} E^{-1},
+\end{align}
+$E_m$ is the matrix of eigenvectors of $B$ and $\Lambda$ is the diagonal matrix of eigenvalues.
+
+Considering Eq. 15, we note $X = E\Lambda^{1/2}$.
+
+## Our Current Solution
+We now know how to find a solution for $B$ given $d(\vec{z}_i, \vec{z}_j) = \langle \vec{z}_i, \vec{z}_j \rangle$.
+
+However, the original problem was $D = \{\|\vec{r}_i - \vec{r}_j\|\}$
+
+We now ask if there exists a relationship between $B$ and $D$.
+
+## Law of Cosines
+
+Recall
+\begin{equation}
+    \| \vec{r}_i - \vec{r}_j \|^2 = \| \vec{r}_i - \bar{r} \|^2  + \| \vec{r}_j - \bar{r} \|^2 - 2 \langle \vec{r}_i - \bar{r}, \vec{r}_j - \bar{r} \rangle
+\end{equation}
+
+Rearranging we find
+\begin{equation}
+    \langle \vec{r}_i - \bar{r}, \vec{r}_j - \bar{r} \rangle = -\frac{\| \vec{r}_i - \vec{r}_j \|^2 - \| \vec{r}_i - \bar{r} \|^2  - \| \vec{r}_j - \bar{r} \|^2}{2}.
+\end{equation}
+
+Perform this transform on $D$?
+
+## Centering Matrix
+
+$C_n$ is the centering matrix defined by
+\begin{equation}
+    C_n = I_n - \frac{1}{n} 1_n1_n^T
+\end{equation}
+
+where $1_n$ is the column vectors of $n$ $1$s.
+
+For a vector $v$
+\begin{align}
+    C_nv &= I_nv - \frac{1}{n} 1_nv1_n^T \\
+     &= v - \bar{v}
+\end{align}
+
+## Solution to Classical MDS
+Now we can relate $B$ to $D$ by
+\begin{equation}
+ B = -\frac{1}{2} C_n D^2 C_n.
+\end{equation}
+
+So the ${\vec{z}_i}$ that minimize 
+\begin{equation}
+    Stress_B= \sum_{ij} (b_{ij} - \langle \vec{z}_i, \vec{z}_j \rangle )^2
+\end{equation}
+
+are given by $X = E\Lambda^{1/2}$.
+
+## Principle Coordinate Analysis
+
+* Visualize high dimensional data along ``principle coordinates"
+
+If $X \in \mathbb{R}^{n \times p}$, consider $\{E_m\Lambda_m : m < n\}$
+
+* $E_m \Lambda_m$ are first m largest $XX^T$ decomposision terms
+    - $XX^T \approx cov(X^T, X^T)$
+
+* Solutions to Principle Component Analysis
+* Maximizes distance along the first $m$ components
+
+## Example -- Iris Data
+```{r}
+data("iris")
+
+d <- dist(iris[c(1:4)])
+fit <- cmdscale(d, eig = TRUE, k = 2)
+
+x <- fit$points[,1]
+y <- fit$points[,2]
+plot(x,y, xlab = "Coordinate 1", ylab = "Coordinate 2", main = "Iris - (Sepal.length, Sepal.width, Petal.length, Petal.width)", col = iris$Species)
+```
+
+# General Multidimensional Scaling
+
+## General Multidimensional Scaling
+
+The general multidimensional scaling problem concerns itself with minimizing the $Stress_D$ for various different $d(\vec{x}_i, \vec{x}_j)$
+
+General multidimensional scaling problems fall into two catagories
+
+* Metric
+* Non-metric
+
+## Metric Multidimensional Scaling
+
+Metric scaling has a stress function with an explicit dependence on the distance measure. In other words, it can be writen as 
+\begin{equation}
+    Stress_D = \sum_{i,j} (d_{ij} - d(\vec{x}_i, \vec{x}_j))^2
+\end{equation}
+
+## Non-Metric
+Assumss distances may not be exact and that only order matters.
+\begin{equation}
+  Stress_D = \sum_{i,j} (d_{ij} - f(d(\vec{x}_i, \vec{x}_j)))^2
+\end{equation}
+
+More general; can be fitted to many different dissimilarity measures.
+  
+## Summary
+
+* Multidimensional Scaling solves to problem of finding positions given distances
+* Analytic solutions exist for classical multidimensional scaling
+    * Equivalent to Principle Component Analysis
+* A good tool for dimensional reduction
+* Non-metric Multidimensional Scaling allows extremely general models
