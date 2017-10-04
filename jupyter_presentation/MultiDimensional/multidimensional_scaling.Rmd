@@ -215,7 +215,7 @@ So the ${\vec{z}_i}$ that minimize
     Stress_B= \sum_{ij} (b_{ij} - \langle \vec{z}_i, \vec{z}_j \rangle )^2
 \end{equation}
 
-are given by $X = E\Lambda^{1/2}$.
+are given by finding $X = E\Lambda^{1/2}$.
 
 # Pinciple Coordiante Analysis and Pinciple Component Analysis
 
@@ -234,7 +234,7 @@ If $X \in \mathbb{R}^{n \times p}$, consider $\{E_m\Lambda_m : m < n\}$
 * Principle Component Analysis of $X^T$
 * Maximizes dimensional variance along the first $m$ components
 
-## Example -- Iris Data
+## Example -- Iris Data PCoA
 ```{r}
 data("iris")
 
@@ -243,7 +243,16 @@ fit <- cmdscale(d, eig = TRUE, k = 2)
 
 x <- fit$points[,1]
 y <- fit$points[,2]
-plot(x,y, xlab = "Coordinate 1", ylab = "Coordinate 2", main = "Iris - (Sepal.length, Sepal.width, Petal.length, Petal.width)", col = iris$Species)
+plot(x, y, xlab = "Coordinate 1", ylab = "Coordinate 2", main = "Iris - (Sepal.length, Sepal.width, Petal.length, Petal.width)", col = iris$Species)
+```
+
+## Example -- Iris PCA
+```{r}
+ir.pca <- prcomp(iris[c(1:4)], center = TRUE)
+
+x <- ir.pca$x[,1]
+y <- ir.pca$x[,2]
+plot(x, y, xlab = "Component 1", ylab = "Component 2", main = "Iris PCA", col = iris$Species)
 ```
 
 # General Multidimensional Scaling
