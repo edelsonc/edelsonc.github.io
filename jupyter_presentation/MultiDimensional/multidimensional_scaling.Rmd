@@ -19,6 +19,13 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * General Problem
     - Metric vs Non-metric
+    
+## Background and Motivation
+
+Encountered over the summer
+
+* Heavily used in genomics research
+* Dimensional reduction technique
 
 # Classical Multidimensional Scaling
 
@@ -27,9 +34,7 @@ Imagine we have three cities: $A$, $B$, and $C$
 
 We wish to make a map of our cities, *but* we only know *distances* and not *locations*.
 
-How do we place them on the map?
-
-$\text{    }\rightarrow$ How do we represent distances?
+How do we place them on the map so that we preserve these distances?
 
 ## Distance Matrix
 
@@ -132,7 +137,6 @@ Alternatively, for $X \in \mathbb{R}^{n \times p}$, where $X_{i.} = \vec{x}_i - 
 Lets review our goal -- minimize
 
 \begin{equation}
-\label{5a}
     \sum_{i,j} \left( d_{ij} - d(\vec{z}_i, \vec{z}_j) \right)^2.
 \end{equation}
 
