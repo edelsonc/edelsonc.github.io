@@ -217,17 +217,22 @@ So the ${\vec{z}_i}$ that minimize
 
 are given by $X = E\Lambda^{1/2}$.
 
+# Pinciple Coordiante Analysis and Pinciple Component Analysis
+
 ## Principle Coordinate Analysis
+
+* Solution to Classical Problem
 
 * Visualize high dimensional data along ``principle coordinates"
 
+## Relationship to Principle Component Analysis
+
 If $X \in \mathbb{R}^{n \times p}$, consider $\{E_m\Lambda_m : m < n\}$
 
-* $E_m \Lambda_m$ are first m largest $XX^T$ decomposision terms
-    - $XX^T \approx cov(X^T, X^T)$
-
-* Solutions to Principle Component Analysis
-* Maximizes distance along the first $m$ components
+* $XX^T \approx cov(X^T, X^T)$
+* $E_m \Lambda_m$ are $m$ largest terms
+* Principle Component Analysis of $X^T$
+* Maximizes dimensional variance along the first $m$ components
 
 ## Example -- Iris Data
 ```{r}
