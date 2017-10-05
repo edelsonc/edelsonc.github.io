@@ -158,14 +158,14 @@ the minimum of
     Strain_B = \sum_{i,j} \left( \langle \vec{x}_i - \bar{x}, \vec{x}_j - \bar{x}  \rangle - d(\vec{z}_i, \vec{z}_j) \right)^2
 \end{equation}
 
-occures when $\{\vec{z}_i\}_{i=1}^n = \{\vec{x}_i - \bar{x}\}_{i=1}^n$.
+occurs when $\{\vec{z}_i\}_{i=1}^n = \{\vec{x}_i - \bar{x}\}_{i=1}^n$.
 
 
 ## Decompose Our Solution
 
-For $B = XX^T$ we know finding $X$ directly is a solution; since $B$ is symetric and semi-definite
+For $B = XX^T$ we know finding $X$ directly is a solution; since $B$ is symmetric and semi-definite
 \begin{align}
-    B &= E \Lambda E^-1 \\
+    B &= E \Lambda E^{-1} \\
     XX^T &= E \Lambda^{1/2} \Lambda^{1/2} E^{-1},
 \end{align}
 $E_m$ is the matrix of eigenvectors of $B$ and $\Lambda$ is the diagonal matrix of eigenvalues.
@@ -204,7 +204,7 @@ where $1_n$ is the column vectors of $n$ $1$s.
 
 For a vector $v$
 \begin{align}
-    C_nv &= I_nv - \frac{1}{n} 1_nv1_n^T \\
+    C_n v &= I_n v - \frac{1}{n} 1_n v 1_n^T \\
      &= v - \bar{v}
 \end{align}
 
@@ -265,22 +265,22 @@ plot(x, y, xlab = "Component 1", ylab = "Component 2", main = "Iris PCA", col = 
 
 The general multidimensional scaling problem concerns itself with minimizing the $Stress_D$ for various different $d(\vec{x}_i, \vec{x}_j)$
 
-General multidimensional scaling problems fall into two catagories
+General multidimensional scaling problems fall into two categories
 
 * Metric
 * Non-metric
 
 ## Metric Multidimensional Scaling
 
-Metric scaling has a stress function with an explicit dependence on the distance measure. In other words, it can be writen as 
+Metric scaling has a stress function with an explicit dependence on the distance measure. In other words, it can be written as 
 \begin{equation}
-    Stress_D = \sum_{i,j} (d_{ij} - d(\vec{x}_i, \vec{x}_j))^2
+    Stress_D = \sum_{i,j} (d_{ij} - d(\vec{z}_i, \vec{z}_j))^2
 \end{equation}
 
 ## Non-Metric
-Assumss distances may not be exact and that only order matters.
+Assumes distances may not be exact and that only order matters.
 \begin{equation}
-  Stress_D = \sum_{i,j} (d_{ij} - f(d(\vec{x}_i, \vec{x}_j)))^2
+  Stress_D = \sum_{i,j} (d_{ij} - f(d(\vec{z}_i, \vec{z}_j)))^2
 \end{equation}
 
 More general; can be fitted to many different dissimilarity measures.
