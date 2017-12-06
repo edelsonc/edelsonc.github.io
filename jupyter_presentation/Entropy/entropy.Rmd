@@ -15,7 +15,6 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Outline
 * History
     - Statistical Mechanics
-    - Information Theory
 * Shannon Entropy
     - Uniform Distribution
     - Normal Distribution
@@ -75,7 +74,7 @@ How would you model this?
     Average Behaviour $\rightarrow$ Macroscopic Properties
 \end{center}
 \pause
-Ludwig Boltzman's statistical mechanical entropy
+Ludwig Boltzman's statistical mechanical entropy (1877)
 \begin{equation}
     S = k_b\ln(\Omega)
 \end{equation}
@@ -117,4 +116,53 @@ Features of paramagnet entropy
 Measure of ``mixed-up-ness" of a physical system
 
 * Higher entropy $\rightarrow$ more mixing (randomness)
-* Lower entropy $rightarrow$ less mixing
+* Lower entropy $\rightarrow$ less mixing
+
+# Shannon Entropy
+
+## Telephone Line Information Loss
+
+Claude Shannon at Bell Telephone (1939)
+
+* Quantify "lost information" in phone-line signals
+* "Information Uncertainty"
+
+\begin{equation}
+H = - K \sum_{i=1}^k p(i)\log(p(i))
+\end{equation}
+
+Difficult time naming $H$...
+
+## Naming "Information Uncertainty"
+...until he visited John von Neumann
+
+> My greatest concern was what to call it. I thought of calling it ‘information’, but the word was overly used, so I decided to call it ‘uncertainty’. When I discussed it with John von Neumann, he had a better idea. Von Neumann told me, ‘You should call it entropy, for two reasons: In the first place your uncertainty function has been used in statistical mechanics under that name, so it already has a name. In the second place, and more important, nobody knows what entropy really is, so in a debate you will always have the advantage.
+
+## Shannon Entropy
+
+Same properties as statistical mechanic entropy
+
+* Low entropy $\rightarrow$ low randomness
+* High entropy $\rightarrow$ high randomness \pause
+
+Directely related to information content of random variable X
+
+* Unpredicatbility of state
+* Average information content \pause
+
+\begin{equation}
+    \text{H}(X) = \text{E}[-\ln(X)]
+\end{equation}
+
+## Shannon Entropy - Uniform Distribution
+
+\begin{figure}
+        \includegraphics[width=0.5\textwidth]{images/uniform.png}
+\end{figure}
+
+\vspace{-.2cm}
+
+* Maximum Entropy
+    - $\text{H}(X) = \ln(N)$
+* Boltzman Statisical Mechanics Entropy
+
