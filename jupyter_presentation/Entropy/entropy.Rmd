@@ -80,19 +80,41 @@ Ludwig Boltzman's statistical mechanical entropy
     S = k_b\ln(\Omega)
 \end{equation}
 
-$\Omega$ is the multiplicity of the macrostate
+$\Omega$ is the multiplicity of a given macrostate
 
-## Microstates, Macrostates, and Multiplicity
-Consider three coin flips
+## Macrostates, Microstates, and Multiplicity
+Consider non-interacting paramagnet with 3 dipoles
 \begin{figure}
         \centering
-        \includegraphics[width=0.5\textwidth]{images/getting-ahead.png}
+        \includegraphics[width=0.5\textwidth]{images/spins.png}
 \end{figure} \pause
 
-* Macrostate - 2 Heads, 1 Tails \pause
+\vspace{-.2cm}
 
-* Microstate - H, T, H \pause
+* Macrostate -  2 Up, 1 Down \pause
 
-* $\Omega = {{3}\choose{2}}$
+* Microstate - $\uparrow$, $\downarrow$, $\uparrow$ \pause
 
+* $\Omega = {{N}\choose{N_\uparrow}} = {{3}\choose{2}}$
 
+## Entropy of 100 Dipole Paramagnet
+
+```{r, echo=FALSE}
+N <- 100
+kb <- 1.38064852e-23
+ups <- c(0:N)
+multiplicity <- choose(N, ups)
+entropy <- kb * log(multiplicity)
+plot(ups, multiplicity, xlab = expression(N[symbol("\255")]), ylab = "Entropy")
+```
+
+## Interpretation
+Features of paramagnet entropy
+
+* Minimum at 0 and 100 $\rightarrow$ 1 microstate each
+* Maximum at 50 $\rightarrow \space 10^{29}$ microstates! \pause
+
+Measure of ``mixed-up-ness" of a physical system
+
+* Higher entropy $\rightarrow$ more mixing (randomness)
+* Lower entropy $rightarrow$ less mixing
