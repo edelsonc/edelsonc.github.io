@@ -1,0 +1,98 @@
+---
+title: "Entropy for Data Science"
+author: Charlie Edelson, Caleb Dowdy, Chris Leonard,  Nicole Navarro, Aaron Niskin, Lance Price
+date: "12/4/2017"
+output:
+    beamer_presentation: 
+        theme: "EastLansing"
+        color: "seahorse"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Outline
+* History
+    - Statistical Mechanics
+    - Information Theory
+* Shannon Entropy
+    - Uniform Distribution
+    - Normal Distribution
+* Tsallis Entropy
+
+# History
+
+## Statistical Mechanics
+Consider a box with $N$ particles of a monatomic gas
+
+\begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/particles.png}
+\end{figure}
+
+How would you model this?
+
+## Statistical Mechanics - State Variables?
+
+* We can talk about state variables: $P$, $T$, $N$, and $V$ \pause 
+
+    - Ideal Gas Law
+
+\begin{equation}
+    PV = nRT    
+\end{equation} \pause
+
+* Characterize System Behaviors
+
+## Statistical Mechanics - Ensemble Statistics
+\begin{columns}
+    \begin{column}{0.4\textwidth}
+       \begin{figure}
+                \includegraphics[width=0.5\textwidth]{images/newton-particles.png}
+        \end{figure}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+        Assume each particle obeys Newton's Law
+        \begin{itemize}
+            \item{ $v_{0}$ and $x_0$ determines system}
+            \item{Impractical for large $N$}
+        \end{itemize}
+        \pause
+        \vspace{0.2cm}
+        James Maxwell's Kinetic Theory of Gases
+        \begin{itemize}
+            \item{Consider Ensamble Statistics}
+        \end{itemize} \vspace{0.2cm}
+        \begin{equation}
+            PV = \frac{Nm\bar{v^2}}{3}
+        \end{equation}
+    \end{column}
+\end{columns}
+
+## Statistical Mechanics Entropy
+\begin{center}
+    Average Behaviour $\rightarrow$ Macroscopic Properties
+\end{center}
+\pause
+Ludwig Boltzman's statistical mechanical entropy
+\begin{equation}
+    S = k_b\ln(\Omega)
+\end{equation}
+
+$\Omega$ is the multiplicity of the macrostate
+
+## Microstates, Macrostates, and Multiplicity
+Consider three coin flips
+\begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/getting-ahead.png}
+\end{figure} \pause
+
+* Macrostate - 2 Heads, 1 Tails \pause
+
+* Microstate - H, T, H \pause
+
+* $\Omega = {{3}\choose{2}}$
+
+
