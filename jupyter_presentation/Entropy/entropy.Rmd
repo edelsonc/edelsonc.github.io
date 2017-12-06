@@ -18,7 +18,8 @@ knitr::opts_chunk$set(echo = FALSE)
 * Shannon Entropy
     - Uniform Distribution
     - Normal Distribution
-* Tsallis Entropy
+    - Tsallis Entropy
+* Entropy for Data Science
 
 # History
 
@@ -61,7 +62,7 @@ How would you model this?
         \vspace{0.2cm}
         James Maxwell's Kinetic Theory of Gases
         \begin{itemize}
-            \item{Consider Ensamble Statistics}
+            \item{Consider Ensemble Statistics}
         \end{itemize} \vspace{0.2cm}
         \begin{equation}
             PV = \frac{Nm\bar{v^2}}{3}
@@ -71,10 +72,10 @@ How would you model this?
 
 ## Statistical Mechanics Entropy
 \begin{center}
-    Average Behaviour $\rightarrow$ Macroscopic Properties
+    Average Behavior $\rightarrow$ Macroscopic Properties
 \end{center}
 \pause
-Ludwig Boltzman's statistical mechanical entropy (1877)
+Ludwig Boltzmann's statistical mechanical entropy (1877)
 \begin{equation}
     S = k_b\ln(\Omega)
 \end{equation}
@@ -145,9 +146,9 @@ Same properties as statistical mechanic entropy
 * Low entropy $\rightarrow$ low randomness
 * High entropy $\rightarrow$ high randomness \pause
 
-Directely related to information content of random variable X
+Directly related to information content of random variable X
 
-* Unpredicatbility of state
+* Unpredictability of state
 * Average information content \pause
 
 \begin{equation}
@@ -160,9 +161,56 @@ Directely related to information content of random variable X
         \includegraphics[width=0.5\textwidth]{images/uniform.png}
 \end{figure}
 
-\vspace{-.2cm}
+\vspace{-.4cm}
 
 * Maximum Entropy
     - $\text{H}(X) = \ln(N)$
-* Boltzman Statisical Mechanics Entropy
+* Boltzmann Statistical Mechanics Entropy
+    - $\text{S} = k_b \ln(\Omega)$
 
+## Shannon Entropy - Normal Distribution
+\begin{figure}
+        \includegraphics[width=0.5\textwidth]{images/normal.png}
+\end{figure}
+
+* Maximum Entropy for fixed mean and variance
+    - $\text{H}(X) = \frac{1}{2} \log( 2 \pi e \sigma^2)$
+* Part of the reason *why the normal distribution*
+
+## Tsallis Entropy
+Attempt to generalize statistical mechanics
+\begin{equation}
+    \text{S}_q(p_i) = \frac{k}{q - 1}\left(1 - \sum_i p_i^q\right)
+\end{equation}
+
+* $q$ is entropic-index
+    - $q \rightarrow 1$, recover Shannon Entropy
+* Experimental Verification
+    - Physical significant still debated
+
+# Entropy for Data Science
+
+## Anamoly Detection
+* Entropy for detecting changes in "randomness"
+    - Machine Learning and Metric Entropy
+
+\begin{figure}
+        \includegraphics[width=0.6\textwidth]{images/nychis.png}
+    \caption{Nychis et. al. 2008}    
+\end{figure}
+
+## Anamoly Detection - Tsallis Entropy
+* Similar work with Tsallis Entropy
+    - $q$ values for specific anamolies \pause
+
+Currently in the works with Akamai!
+
+## Summary
+
+* Entropy from Statistical Mechanics
+    - Measure of "mixedness" or macrostate
+* Adopted by Shannon $\rightarrow$ Infromation Loss
+    - Average Information of State
+    - Unpredictability
+* Applicaitons in Anamoly Detection
+    
